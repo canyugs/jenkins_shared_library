@@ -22,6 +22,7 @@ def call(String buildStatus = 'STARTED', String channel = '#senaobot') {
   //def commit = sh(returnStdout: true, script: 'git rev-parse HEAD')
   //def author = sh(returnStdout: true, script: "git --no-pager show -s --format='%an'").trim()
   //def message = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+  def shortCommit = "$afterCommit".substring(0,6)
   def commit = "$shortCommit"
   def author = "$developer"
   def message = "$message"
