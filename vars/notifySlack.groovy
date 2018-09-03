@@ -5,7 +5,7 @@ import net.sf.json.JSONObject;
 import hudson.tasks.test.AbstractTestResultAction;
 import hudson.model.Actionable;
 
-def call(String buildStatus = 'STARTED', String channel = '#senaobot') {
+def call(String buildStatus = 'STARTED', String channel = '#senaobot', Boolean livedoc_enable = false) {
 
   // buildStatus of null means successfull
   buildStatus = buildStatus ?: 'SUCCESSFUL'
@@ -102,13 +102,16 @@ def call(String buildStatus = 'STARTED', String channel = '#senaobot') {
   testResults.put('value', testSummary.toString());
   testResults.put('short', false);
   slackMessagelist << testResults;
+
   // JSONObject for livedoc
-  JSONObject livedoc = new JSONObject();
-  livedoc.put('title', 'Live Documentation');
-  livedoc.put('value', liveDocUrl.toString());
-  livedoc.put('short', false);
-  slackMessagelist << livedoc;
-  
+  if (livedoc_enable){
+    JSONObject livedoc = new JSONObject();
+    livedoc.put('title', 'Live Documentation');
+    livedoc.put('value', liveDocUrl.toString());
+    livedoc.put('short', false);
+    slackMessagelist << livedoc;
+  }
+
   attachment.put('fields', slackMessagelist);
   JSONArray attachments = new JSONArray();
   attachments.add(attachment);
