@@ -5,11 +5,11 @@ import net.sf.json.JSONObject;
 import hudson.tasks.test.AbstractTestResultAction;
 import hudson.model.Actionable;
 
-def call(String buildStatus = 'STARTED', String channel = '#senaobot', Boolean livedoc_enable = false) {
+def call(String buildStatus = 'STARTED', String channel = '#testing', Boolean livedoc_enable = false, String liveDocUrl = "") {
 
   // buildStatus of null means successfull
   buildStatus = buildStatus ?: 'SUCCESSFUL'
-  channel = channel ?: '#senaobot'
+  channel = channel ?: '#testing'
 
   // Default values
   def colorName = 'RED'
@@ -26,7 +26,7 @@ def call(String buildStatus = 'STARTED', String channel = '#senaobot', Boolean l
   //def commit = "$shortCommit"
   //def author = "$developer"
   //def message = "$message"
-  def liveDocUrl = "http://snwl-falcon-test-report.s3-website-us-west-2.amazonaws.com/$branch-result.html"
+  def liveDocUrl = liveDocUrl
   def slackMessagelist = []
 
   // Override default values based on build status
