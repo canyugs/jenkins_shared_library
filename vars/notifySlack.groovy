@@ -26,7 +26,7 @@ def call(String buildStatus = 'STARTED', String channel = '#testing', Boolean li
   //def commit = "$shortCommit"
   //def author = "$developer"
   //def message = "$message"
-  def liveDocUrl = liveDocUrl
+  //def liveDocUrl = liveDocUrl
   def slackMessagelist = []
 
   // Override default values based on build status
