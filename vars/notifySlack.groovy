@@ -5,7 +5,11 @@ import net.sf.json.JSONObject;
 import hudson.tasks.test.AbstractTestResultAction;
 import hudson.model.Actionable;
 
-def call(String buildStatus = 'STARTED', String channel = '#testing', Boolean livedoc_enable = false, String liveDocUrl = "") {
+def call(String buildStatus = 'STARTED',
+         String channel = '#testing',
+         String branch = 'dev',
+         Boolean livedoc_enable = false,
+         String liveDocUrl = "",) {
 
   // buildStatus of null means successfull
   buildStatus = buildStatus ?: 'SUCCESSFUL'
@@ -17,7 +21,7 @@ def call(String buildStatus = 'STARTED', String channel = '#testing', Boolean li
   def subject = "Result: ${buildStatus}(<${env.RUN_DISPLAY_URL}|Open>) (<${env.RUN_CHANGES_DISPLAY_URL}|  Changes>)"
   def title = "${env.JOB_NAME} Build: ${env.BUILD_NUMBER}"
   def title_link = "${env.RUN_DISPLAY_URL}"
-  def branchName = "$branch"
+  def branchName = "${branch}"
 
   def commit = sh(returnStdout: true, script: 'git rev-parse HEAD')
   def author = sh(returnStdout: true, script: "git --no-pager show -s --format='%an'").trim()
