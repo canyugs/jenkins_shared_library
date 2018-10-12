@@ -9,7 +9,7 @@ def call(String buildStatus = 'STARTED',
          String channel = '#testing',
          String branch = 'dev',
          Boolean livedoc_enable = false,
-         String liveDocUrl = "",) {
+         String liveDocUrl = "") {
 
   // buildStatus of null means successfull
   buildStatus = buildStatus ?: 'SUCCESSFUL'
