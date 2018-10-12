@@ -7,7 +7,7 @@ import hudson.model.Actionable;
 
 def call(String buildStatus = 'STARTED',
          String channel = '#testing',
-         String branch = 'dev',
+         String sourceBranch = 'dev',
          Boolean livedoc_enable = false,
          String liveDocUrl = "") {
 
@@ -21,7 +21,6 @@ def call(String buildStatus = 'STARTED',
   def subject = "Result: ${buildStatus}(<${env.RUN_DISPLAY_URL}|Open>) (<${env.RUN_CHANGES_DISPLAY_URL}|  Changes>)"
   def title = "${env.JOB_NAME} Build: ${env.BUILD_NUMBER}"
   def title_link = "${env.RUN_DISPLAY_URL}"
-  def branchName = "${branch}"
 
   def commit = sh(returnStdout: true, script: 'git rev-parse HEAD')
   def author = sh(returnStdout: true, script: "git --no-pager show -s --format='%an'").trim()
@@ -85,7 +84,7 @@ def call(String buildStatus = 'STARTED',
   // JSONObject for branch
   JSONObject branch = new JSONObject();
   branch.put('title', 'Branch');
-  branch.put('value', branchName.toString());
+  branch.put('value', sourceBranch.toString());
   branch.put('short', true);
   slackMessagelist << branch;
   // JSONObject for author
